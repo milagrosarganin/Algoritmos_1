@@ -18,7 +18,7 @@ public record Prestamo(LocalDate fechaRetiro, int padron, String socio, String i
 
         if (padron >=1){
 
-            throw new IllegalArgumentException("El padron debe ser un N° mayor a cero")
+            throw new IllegalArgumentException("El padron debe ser un N° mayor a cero");
         }
 
         if (socio == null || socio.isBlank()) {
@@ -56,8 +56,8 @@ public record Prestamo(LocalDate fechaRetiro, int padron, String socio, String i
     public int multa(LocalDate corte){
 
         int valor = 0;
-        if (diasDeAtraso(LocalDate corte)<21){
-            valor = diasDeAtraso()*1500;
+        if (diasDeAtraso(corte)<21){
+            valor = (int) (diasDeAtraso(corte)*150);
         }
         else {
             valor = 3000;
