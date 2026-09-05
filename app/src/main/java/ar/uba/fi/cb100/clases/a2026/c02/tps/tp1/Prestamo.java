@@ -1,7 +1,5 @@
 package ar.uba.fi.cb100.clases.a2026.c02.tps.tp1;
 
-import org.apache.commons.io.filefilter.TrueFileFilter;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -16,7 +14,7 @@ public record Prestamo(LocalDate fechaRetiro, int padron, String socio, String i
             throw new IllegalArgumentException("la devolucion no puede ser anterior al retiro");
         }
 
-        if (padron >=1){
+        if (padron <1){
 
             throw new IllegalArgumentException("El padron debe ser un N° mayor a cero");
         }
