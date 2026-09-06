@@ -6,6 +6,6 @@ public interface RegistroPrestamos {
         int cantidad();
         Prestamo obtener(int i);              // i es n de prestamo q se quire obtener, IndexOutOfBoundsException si i es invalido
         int[] padrones();                     // devuelve un array con int de los padrones, sin repetidos, en orden de aparicion
-        Prestamo[] prestamosDe(int padron);   // devulve un array con la catidad de veces que hizo un prestamo el padron que se pasa comp parametro, arreglo vacio si no hay ninguno
+        Prestamo[] prestamosDe(int padron);   // devulve un array con los prestamos que hizo el n de padron que se pasa comp parametro, arreglo vacio si no hay ninguno
         String[] titulosMasPedidos(int n);    // arreglo con los n titulos mas pedidos, desempate alfabetico
 }
