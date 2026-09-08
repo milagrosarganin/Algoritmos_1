@@ -30,6 +30,9 @@ public class Tp1 {
         ExportadorDeReporte exportadorCSV = new ExportadorCSV();
         exportadorCSV.exportar(filas, Path.of("reporte." + exportadorCSV.extension()));
 
+        ExportadorDeReporte exportadorXlsx = new ExportadorXLSX();
+        exportadorXlsx.exportar(filas, Path.of("reporte." + exportadorXlsx.extension()));
+
         System.out.println("TITULOS MAS PEDIDOS");
         for (int i = 0; i < ranking.length; i++) {
             System.out.println(" " + (i + 1) + ". " + ranking[i]);
