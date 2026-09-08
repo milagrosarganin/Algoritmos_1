@@ -7,9 +7,12 @@ public class RegistroSobreArreglo implements RegistroPrestamos{
     private Prestamo[] datos;
     private int cantidad;
 
+    public RegistroSobreArreglo(){
+        datos = new Prestamo[8];
+        cantidad = 0;
+    }
     @Override  //indica que voy a cambiar un metdo que ya existe en la interface
     public void registrar(Prestamo p) {
-
         if (cantidad == datos.length){
 
             datos = Arrays.copyOf(datos, datos.length * 2); //este metodo es de java, y puede hacer unnuevo array datos con el doble de capcidad del que tenia el anterior y copiando los obejtos que estaban en el anterior
@@ -84,7 +87,7 @@ public class RegistroSobreArreglo implements RegistroPrestamos{
 
     }
 
-    public int maximador (int[] apariciones, int limite){
+    public int maximador (int[] apariciones, int limite, String[] titulos){
         //este metodo busca el maximo numero de un array y devuleve la posicion de ese n maximo
         int posicionDelValorMaximo = 1;
         for(int i=0; i<limite; i++){
@@ -92,6 +95,8 @@ public class RegistroSobreArreglo implements RegistroPrestamos{
             if (apariciones[i]>apariciones[posicionDelValorMaximo]){  //[1,33,6,7,8,9,10,4,50]
                 posicionDelValorMaximo = i; //maximo actualiza el valor
 
+            } else if (apariciones[i] == apariciones[posicionDelValorMaximo] && titulos[i].compareTo(titulos[posicionDelValorMaximo]) < 0) {
+                posicionDelValorMaximo = i;
             }
         }
         return posicionDelValorMaximo;
@@ -100,38 +105,32 @@ public class RegistroSobreArreglo implements RegistroPrestamos{
 
     @Override
     public String[] titulosMasPedidos(int n) {
-
         var titulos = new String[cantidad];
         var apariciones = new int[cantidad];
         int limite = 0;
-        var top = new String[cantidad];
-        for(int i = 0; i<cantidad; i++){
 
+        for (int i = 0; i < cantidad; i++) {
             String titulo = datos[i].titulo();
-            if(buscador(titulos, titulo, limite)!= -1){
-                int posicion = buscador(titulos, titulo, limite);
+            int posicion = buscador(titulos, titulo, limite);
+            if (posicion != -1) {
                 apariciones[posicion]++;
-            }
-            else{
-                titulos[i] = titulo;
-                apariciones[i] = 1;
+            } else {
+                titulos[limite] = titulo;
+                apariciones[limite] = 1;
                 limite++;
             }
         }
-        //hasta aca ya tengo los dos array de donde debo sacar el top n
 
-        //este for es para buscar el maximo n de apariciones de un titulo y dsp ir eliminadolo  para encontrar el siguiente mayor n de apapriciones de un titulo y asi armar el top
-        for(int i=0; i<=n; i++){
+        int cantidadFinal = Math.min(n, limite);
+        var top = new String[cantidadFinal];
 
-            int p = maximador(apariciones, limite); //posiicon del titulo mas grande
-            top[i] = titulos[p]; //array devolucion
-            apariciones[p] = apariciones[p+1];
-            titulos[p] = titulos[p+1];
-            n--;
+        for (int k = 0; k < cantidadFinal; k++) {
+            int p = maximador(apariciones, limite, titulos);
+            top[k] = titulos[p];
+            apariciones[p] = -1;
         }
 
         return top;
     }
-
 
 }
